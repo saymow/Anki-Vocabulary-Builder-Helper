@@ -19,6 +19,13 @@ export class GetCardController implements Controller {
 
       const card = await this.getCard.execute(word);
 
+      if (!card) {
+        return {
+          statusCode: 404,
+          body: null,
+        };
+      }
+
       return ok(card);
     } catch (error: any) {
       return serverError(error);
