@@ -1,6 +1,6 @@
 export interface WordInformation {
   definition: string
-  phrasesExamples: string[]
+  usageExamples: string[]
 }
 
 export interface GetWordInformationService {

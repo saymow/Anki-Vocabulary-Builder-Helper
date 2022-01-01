@@ -4,7 +4,7 @@ import { ExternalGetCard } from './external-get-card'
 
 const makeFakeWordInformation = (): WordInformation => ({
   definition: 'any_definition',
-  phrasesExamples: ['any_phrase 1', 'any_phrase 2']
+  usageExamples: ['any_phrase 1', 'any_phrase 2']
 })
 
 const makeFakeCard = (): CardModel => ({

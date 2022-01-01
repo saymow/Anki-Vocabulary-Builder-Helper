@@ -14,11 +14,11 @@ export class ExternalGetCard implements GetCard {
       return null
     }
 
-    const { definition, phrasesExamples: [firstPhrase] } = wordInformation
+    const { definition, usageExamples: [firstUsageExample] } = wordInformation
 
     return {
       word,
-      front: firstPhrase,
+      front: firstUsageExample,
       back: definition
     }
   }
