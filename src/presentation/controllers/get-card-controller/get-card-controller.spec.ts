@@ -1,10 +1,10 @@
-import { CardModel } from '../../../domain/models/card'
-import { GetCard } from '../../../domain/usecases/get-card'
-import { MissingParamError } from '../../errors'
-import { badRequest, notFound, ok, serverError } from '../../helpers/http/http-helper'
-import { HttpRequest } from '../../protocols/http'
-import { Validation } from '../../protocols/validation'
 import { GetCardController } from './get-card-controller'
+import { MissingParamError } from '@/presentation/errors'
+import { badRequest, notFound, ok, serverError } from '@/presentation/helpers/http/http-helper'
+import { HttpRequest } from '@/presentation/protocols/http'
+import { Validation } from '@/presentation/protocols/validation'
+import { CardModel } from '@/domain/models/card'
+import { GetCard } from '@/domain/usecases/get-card'
 
 const makeFakeRequest = (): HttpRequest => ({
   queryParams: {
