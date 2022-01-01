@@ -4,5 +4,5 @@ export interface WordInformation {
 }
 
 export interface GetWordInformationService {
-  getInformation: (word: string) => Promise<WordInformation>
+  getInformation: (word: string) => Promise<WordInformation | null>
 }

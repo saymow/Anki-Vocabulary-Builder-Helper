@@ -37,4 +37,13 @@ describe('ExternalGetCard useCase', () => {
 
     expect(getInformationSpy).toBeCalledWith('any_word')
   })
+
+  test('Should return null if GetWordInformationService returns null', async () => {
+    const { sut, getWordInformationServiceStub } = makeSut()
+    jest.spyOn(getWordInformationServiceStub, 'getInformation').mockReturnValueOnce(Promise.resolve(null))
+
+    const card = await sut.execute('any_word')
+
+    expect(card).toBeNull()
+  })
 })
