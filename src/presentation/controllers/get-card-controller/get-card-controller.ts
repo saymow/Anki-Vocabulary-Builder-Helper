@@ -6,7 +6,14 @@ export class GetCardController implements Controller {
   constructor(private readonly validation: Validation) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    this.validation.validate(httpRequest.queryParams);
+    const error = this.validation.validate(httpRequest.queryParams);
+
+    if (error) {
+      return {
+        statusCode: 400,
+        body: error,
+      };
+    }
 
     return {
       statusCode: 200,
