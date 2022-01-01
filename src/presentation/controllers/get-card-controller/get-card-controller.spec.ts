@@ -88,4 +88,12 @@ describe('GetCard controller', () => {
 
     expect(getCardSpy).toHaveBeenCalledWith('any_word');
   });
+
+  test('Should return 200 if GetCard returns a card', async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle(makeFakeRequest());
+
+    expect(httpResponse.statusCode).toBe(200);
+    expect(httpResponse.body).toEqual(makeFakeCard());
+  });
 });
