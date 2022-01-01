@@ -1,8 +1,8 @@
-import { badRequest } from '../../helpers/http/http-helper';
-import { MissingParamError, ServerError } from '../../errors';
+import { MissingParamError } from '../../errors';
+import { badRequest, serverError } from '../../helpers/http/http-helper';
+import { HttpRequest } from '../../protocols/http';
 import { Validation } from '../../protocols/validation';
 import { GetCardController } from './get-card-controller';
-import { HttpRequest } from '../../protocols/http';
 
 const makeFakeRequest = (): HttpRequest => ({
   queryParams: {
@@ -58,7 +58,6 @@ describe('GetCard controller', () => {
     });
     const httpResponse = await sut.handle(makeFakeRequest());
 
-    expect(httpResponse.statusCode).toBe(500);
-    expect(httpResponse.body).toEqual(new ServerError(new Error().stack as string));
+    expect(httpResponse).toEqual(serverError(new Error()));
   });
 });
