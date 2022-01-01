@@ -11,6 +11,11 @@ export const badRequest = (error: Error): HttpResponse => ({
   body: error,
 });
 
+export const notFound = (): HttpResponse => ({
+  statusCode: 404,
+  body: null,
+});
+
 export const serverError = (error: Error): HttpResponse => ({
   statusCode: 500,
   body: new ServerError(error.stack),

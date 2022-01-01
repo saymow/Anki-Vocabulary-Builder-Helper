@@ -1,7 +1,7 @@
 import { CardModel } from '../../../domain/models/card';
 import { GetCard } from '../../../domain/usecases/get-card';
 import { MissingParamError } from '../../errors';
-import { badRequest, ok, serverError } from '../../helpers/http/http-helper';
+import { badRequest, notFound, ok, serverError } from '../../helpers/http/http-helper';
 import { HttpRequest } from '../../protocols/http';
 import { Validation } from '../../protocols/validation';
 import { GetCardController } from './get-card-controller';
@@ -101,6 +101,6 @@ describe('GetCard controller', () => {
     jest.spyOn(getCardStub, 'execute').mockReturnValueOnce(Promise.resolve(null));
     const httpResponse = await sut.handle(makeFakeRequest());
 
-    expect(httpResponse.statusCode).toBe(404);
+    expect(httpResponse).toEqual(notFound());
   });
 });

@@ -1,5 +1,5 @@
 import { GetCard } from '../../../domain/usecases/get-card';
-import { badRequest, ok, serverError } from '../../helpers/http/http-helper';
+import { badRequest, notFound, ok, serverError } from '../../helpers/http/http-helper';
 import { Controller } from '../../protocols/controller';
 import { HttpRequest, HttpResponse } from '../../protocols/http';
 import { Validation } from '../../protocols/validation';
@@ -20,10 +20,7 @@ export class GetCardController implements Controller {
       const card = await this.getCard.execute(word);
 
       if (!card) {
-        return {
-          statusCode: 404,
-          body: null,
-        };
+        return notFound();
       }
 
       return ok(card);
