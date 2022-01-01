@@ -26,6 +26,9 @@
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.4.4"
   },
+  "dependencies": {
+    "axios": "^0.24.0"
+  },
   "_moduleAliases": {
     "@": "dist"
   }
