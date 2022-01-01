@@ -103,4 +103,14 @@ describe('GetCard controller', () => {
 
     expect(httpResponse).toEqual(notFound());
   });
+
+  test('Should return 500 if GetCard throws', async () => {
+    const { sut, getCardStub } = makeSut();
+    jest.spyOn(getCardStub, 'execute').mockImplementation(() => {
+      throw new Error();
+    });
+    const httpResponse = await sut.handle(makeFakeRequest());
+
+    expect(httpResponse).toEqual(serverError(new Error()));
+  });
 });
