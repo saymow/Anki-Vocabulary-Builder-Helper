@@ -1,3 +1,4 @@
+import { ServerError } from '../../errors';
 import { badRequest } from '../../helpers/http/http-helper';
 import { Controller } from '../../protocols/controller';
 import { HttpRequest, HttpResponse } from '../../protocols/http';
@@ -18,10 +19,10 @@ export class GetCardController implements Controller {
         statusCode: 200,
         body: null,
       };
-    } catch (error) {
+    } catch (error: any) {
       return {
         statusCode: 500,
-        body: error,
+        body: new ServerError(error.stack),
       };
     }
   }

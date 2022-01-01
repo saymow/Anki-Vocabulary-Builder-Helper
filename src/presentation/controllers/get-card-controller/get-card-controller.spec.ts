@@ -1,5 +1,5 @@
 import { badRequest } from '../../helpers/http/http-helper';
-import { MissingParamError } from '../../errors';
+import { MissingParamError, ServerError } from '../../errors';
 import { Validation } from '../../protocols/validation';
 import { GetCardController } from './get-card-controller';
 import { HttpRequest } from '../../protocols/http';
@@ -59,6 +59,6 @@ describe('GetCard controller', () => {
     const httpResponse = await sut.handle(makeFakeRequest());
 
     expect(httpResponse.statusCode).toBe(500);
-    expect(httpResponse.body).toEqual(new Error());
+    expect(httpResponse.body).toEqual(new ServerError(new Error().stack as string));
   });
 });
