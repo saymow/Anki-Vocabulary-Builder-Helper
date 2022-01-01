@@ -1,13 +1,15 @@
 import { GetWordInformationService, WordInformation } from '@/data/protocols/external/get-word-information-service'
 import { ExternalGetCard } from './external-get-card'
 
+const makeFakeWordInformation = (): WordInformation => ({
+  definition: 'any_definition',
+  phrasesExamples: ['any_phrase 1', 'any_phrase 2']
+})
+
 const makeGetWordInformationServiceStub = (): GetWordInformationService => {
   class GetWordInformationServiceStub implements GetWordInformationService {
     async getInformation (word: string): Promise<WordInformation> {
-      return await Promise.resolve({
-        definition: 'any_definition',
-        phrasesExamples: ['any_phrase 1', 'any_phrase 2']
-      })
+      return await Promise.resolve(makeFakeWordInformation())
     }
   }
 
