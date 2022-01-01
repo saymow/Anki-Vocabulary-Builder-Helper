@@ -1,16 +1,12 @@
-import { GetWordInformationService, WordInformation, CardModel } from './external-get-card-protocols'
-import { ExternalGetCard } from './external-get-card'
+import { GetWordInformationService, WordInformation, CardDataModel } from './external-get-card-protocols'
+import { ExternalGetCardData } from './external-get-card'
 
 const makeFakeWordInformation = (): WordInformation => ({
-  definition: 'any_definition',
-  usageExamples: ['any_phrase 1', 'any_phrase 2']
+  definitions: ['first_definition', 'second_definition'],
+  usageExamples: ['first_example', 'second_example']
 })
 
-const makeFakeCard = (): CardModel => ({
-  word: 'any_word',
-  front: 'any_phrase 1',
-  back: 'any_definition'
-})
+const makeFakeCard = (): CardDataModel => Object.assign({ word: 'any_word' }, makeFakeWordInformation())
 
 const makeGetWordInformationServiceStub = (): GetWordInformationService => {
   class GetWordInformationServiceStub implements GetWordInformationService {
@@ -24,17 +20,17 @@ const makeGetWordInformationServiceStub = (): GetWordInformationService => {
 
 type SutTypes = {
   getWordInformationServiceStub: GetWordInformationService
-  sut: ExternalGetCard
+  sut: ExternalGetCardData
 }
 
 const makeSut = (): SutTypes => {
   const getWordInformationServiceStub = makeGetWordInformationServiceStub()
-  const sut = new ExternalGetCard(getWordInformationServiceStub)
+  const sut = new ExternalGetCardData(getWordInformationServiceStub)
 
   return { sut, getWordInformationServiceStub }
 }
 
-describe('ExternalGetCard useCase', () => {
+describe('ExternalGetCardData useCase', () => {
   test('Should call GetWordInformationService with correct value', async () => {
     const { sut, getWordInformationServiceStub } = makeSut()
     const getInformationSpy = jest.spyOn(getWordInformationServiceStub, 'getInformation')

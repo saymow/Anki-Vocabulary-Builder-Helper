@@ -1,11 +1,11 @@
-import { GetCard } from '@/domain/usecases/get-card'
+import { GetCardData } from '@/domain/usecases/get-card-data'
 import { badRequest, notFound, ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { Controller } from '@/presentation/protocols/controller'
 import { HttpRequest, HttpResponse } from '@/presentation/protocols/http'
 import { Validation } from '@/presentation/protocols/validation'
 
-export class GetCardController implements Controller {
-  constructor (private readonly validation: Validation, private readonly getCard: GetCard) { }
+export class GetCardDataController implements Controller {
+  constructor (private readonly validation: Validation, private readonly getCard: GetCardData) { }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {

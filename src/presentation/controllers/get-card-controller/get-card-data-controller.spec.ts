@@ -1,10 +1,10 @@
-import { GetCardController } from './get-card-controller'
+import { GetCardDataController } from './get-card-data-controller'
 import { MissingParamError } from '@/presentation/errors'
 import { badRequest, notFound, ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { HttpRequest } from '@/presentation/protocols/http'
 import { Validation } from '@/presentation/protocols/validation'
-import { CardModel } from '@/domain/models/card'
-import { GetCard } from '@/domain/usecases/get-card'
+import { CardDataModel } from '@/domain/models/card-data'
+import { GetCardData } from '@/domain/usecases/get-card-data'
 
 const makeFakeRequest = (): HttpRequest => ({
   queryParams: {
@@ -22,16 +22,16 @@ const makeValidationStub = (): Validation => {
   return new ValidationStub()
 }
 
-const makeFakeCard = (): CardModel => ({
+const makeFakeCardData = (): CardDataModel => ({
   word: 'some_word',
-  front: 'front_text',
-  back: 'back_text'
+  usageExamples: ['any_usage_example'],
+  definitions: ['any_definition']
 })
 
-const makeGetCardStub = (): GetCard => {
-  class GetCardStub implements GetCard {
-    async execute (word: string): Promise<CardModel> {
-      return makeFakeCard()
+const makeGetCardDataStub = (): GetCardData => {
+  class GetCardStub implements GetCardData {
+    async execute (word: string): Promise<CardDataModel> {
+      return makeFakeCardData()
     }
   }
 
@@ -39,20 +39,20 @@ const makeGetCardStub = (): GetCard => {
 }
 
 type SutTypes = {
-  sut: GetCardController
+  sut: GetCardDataController
   validationStub: Validation
-  getCardStub: GetCard
+  getCardStub: GetCardData
 }
 
 const makeSut = (): SutTypes => {
   const validationStub = makeValidationStub()
-  const getCardStub = makeGetCardStub()
-  const sut = new GetCardController(validationStub, getCardStub)
+  const getCardStub = makeGetCardDataStub()
+  const sut = new GetCardDataController(validationStub, getCardStub)
 
   return { sut, validationStub, getCardStub }
 }
 
-describe('GetCard controller', () => {
+describe('GetCardDataController', () => {
   test('Should call validation with correct value', async () => {
     const { sut, validationStub } = makeSut()
     const validationSpy = jest.spyOn(validationStub, 'validate')
@@ -93,7 +93,7 @@ describe('GetCard controller', () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest())
 
-    expect(httpResponse).toEqual(ok(makeFakeCard()))
+    expect(httpResponse).toEqual(ok(makeFakeCardData()))
   })
 
   test('Should return 404 if GetCard returns null', async () => {

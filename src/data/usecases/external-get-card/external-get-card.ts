@@ -1,23 +1,17 @@
-import { CardModel, GetCard, GetWordInformationService } from './external-get-card-protocols'
+import { CardDataModel, GetCardData, GetWordInformationService } from './external-get-card-protocols'
 
-export class ExternalGetCard implements GetCard {
+export class ExternalGetCardData implements GetCardData {
   constructor (
     private readonly getWordInformationService: GetWordInformationService
   ) { }
 
-  async execute (word: string): Promise<CardModel | null> {
+  async execute (word: string): Promise<CardDataModel | null> {
     const wordInformation = await this.getWordInformationService.getInformation(word)
 
     if (!wordInformation) {
       return null
     }
 
-    const { definition, usageExamples: [firstUsageExample] } = wordInformation
-
-    return {
-      word,
-      front: firstUsageExample,
-      back: definition
-    }
+    return Object.assign({ word }, wordInformation)
   }
 }

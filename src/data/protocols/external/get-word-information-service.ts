@@ -1,5 +1,5 @@
 export interface WordInformation {
-  definition: string
+  definitions: string[]
   usageExamples: string[]
 }
 

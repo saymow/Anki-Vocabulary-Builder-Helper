@@ -1,7 +1,7 @@
-# Get card
+# Get card data
 
 > ## Success
-> - ❌ Receive a **GET** request on route **/api/card?word={word}** 
+> - ❌ Receive a **GET** request on route **/api/card-data?word={word}** 
 > - ❌ Validate query param **word**
 > - ❌ **Create** a card containing a phrase with the given word and, on the back, the word meaning 
 > - ✅ Returns **200** with the card data
