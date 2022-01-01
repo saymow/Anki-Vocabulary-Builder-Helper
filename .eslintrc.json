@@ -20,12 +20,7 @@
         "ts": "never"
       }
     ],
-    "no-unused-vars": [
-      "error",
-      {
-        "argsIgnorePattern": "_"
-      }
-    ]
+    "no-unused-vars": 0
   },
   "settings": {
     "import/resolver": {
