@@ -1,3 +1,4 @@
+import { MissingParamError } from '../../errors';
 import { Validation } from '../../protocols/validation';
 import { GetCardController } from './get-card-controller';
 
@@ -41,13 +42,13 @@ describe('GetCard controller', () => {
 
   test('Should return 400 if validation returns an error', async () => {
     const { sut, validationStub } = makeSut();
-    jest.spyOn(validationStub, 'validate').mockImplementation(() => new Error());
+    jest.spyOn(validationStub, 'validate').mockImplementation(() => new MissingParamError('word'));
 
     const httpResponse = await sut.handle({
       queryParams: {},
     });
 
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new Error());
+    expect(httpResponse.body).toEqual(new MissingParamError('word'));
   });
 });
