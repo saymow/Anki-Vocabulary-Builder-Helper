@@ -17,11 +17,11 @@ export class GetCardController implements Controller {
 
       const { word } = httpRequest.queryParams;
 
-      await this.getCard.execute(word);
+      const card = await this.getCard.execute(word);
 
       return {
         statusCode: 200,
-        body: null,
+        body: card,
       };
     } catch (error: any) {
       return serverError(error);
