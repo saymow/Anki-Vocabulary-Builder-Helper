@@ -4,11 +4,9 @@
   "description": "A flashcard-generator that creates a card by a given word",
   "main": "index.js",
   "scripts": {
-    "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules ./src/index.ts",
-    "build": "tsc",
-    "start": "node ./dist/index.js",
+    "build": "rm -rf dist && tsc",
     "prepare": "husky install",
-    "lint": "eslint ./src/index.ts",
+    "lint": "eslint 'src/**'",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:staged": "npm run test -- --findRelatedTests",
     "test:watch": "npm run test -- --watch"
