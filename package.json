@@ -11,7 +11,7 @@
     "lint": "eslint ./src/index.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:staged": "npm run test -- --findRelatedTests",
-    "test:watch": "npm run test --watch"
+    "test:watch": "npm run test -- --watch"
   },
   "keywords": [],
   "author": "",
