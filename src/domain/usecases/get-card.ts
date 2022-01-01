@@ -1,5 +1,5 @@
-import { CardModel } from '../models/card';
+import { CardModel } from '../models/card'
 
 export interface GetCard {
-  execute: (word: string) => Promise<CardModel | null>;
+  execute: (word: string) => Promise<CardModel | null>
 }

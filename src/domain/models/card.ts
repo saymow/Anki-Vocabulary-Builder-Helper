@@ -1,5 +1,5 @@
 export type CardModel = {
-  word: string;
-  front: string;
-  back: string;
-};
+  word: string
+  front: string
+  back: string
+}
