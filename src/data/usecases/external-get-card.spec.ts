@@ -1,9 +1,16 @@
 import { GetWordInformationService, WordInformation } from '@/data/protocols/external/get-word-information-service'
+import { CardModel } from '@/domain/models/card'
 import { ExternalGetCard } from './external-get-card'
 
 const makeFakeWordInformation = (): WordInformation => ({
   definition: 'any_definition',
   phrasesExamples: ['any_phrase 1', 'any_phrase 2']
+})
+
+const makeFakeCard = (): CardModel => ({
+  word: 'any_word',
+  front: 'any_phrase 1',
+  back: 'any_definition'
 })
 
 const makeGetWordInformationServiceStub = (): GetWordInformationService => {
@@ -52,5 +59,12 @@ describe('ExternalGetCard useCase', () => {
     jest.spyOn(getWordInformationServiceStub, 'getInformation').mockImplementationOnce(() => { throw new Error() })
 
     await expect(sut.execute('any_word')).rejects.toThrow()
+  })
+
+  test('Should return a card on success', async () => {
+    const { sut } = makeSut()
+    const card = await sut.execute('any_word')
+
+    expect(card).toEqual(makeFakeCard())
   })
 })
