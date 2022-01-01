@@ -95,4 +95,12 @@ describe('GetCard controller', () => {
 
     expect(httpResponse).toEqual(ok(makeFakeCard()));
   });
+
+  test('Should return 404 if GetCard returns null', async () => {
+    const { sut, getCardStub } = makeSut();
+    jest.spyOn(getCardStub, 'execute').mockReturnValueOnce(Promise.resolve(null));
+    const httpResponse = await sut.handle(makeFakeRequest());
+
+    expect(httpResponse.statusCode).toBe(404);
+  });
 });
