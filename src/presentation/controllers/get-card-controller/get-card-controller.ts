@@ -1,11 +1,15 @@
+import { HttpRequest, HttpResponse } from '../../protocols/http';
 import { Validation } from '../../protocols/validation';
 
 export class GetCardController {
   constructor(private readonly validation: Validation) {}
 
-  async handle(httpRequest: any) {
+  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     this.validation.validate(httpRequest.queryParams);
 
-    return null;
+    return {
+      statusCode: 200,
+      body: null,
+    };
   }
 }
