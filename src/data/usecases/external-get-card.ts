@@ -5,10 +5,21 @@ import { GetWordInformationService } from '../protocols/external/get-word-inform
 export class ExternalGetCard implements GetCard {
   constructor (
     private readonly getWordInformationService: GetWordInformationService
-  ) {}
+  ) { }
 
   async execute (word: string): Promise<CardModel | null> {
-    await this.getWordInformationService.getInformation(word)
-    return null
+    const wordInformation = await this.getWordInformationService.getInformation(word)
+
+    if (!wordInformation) {
+      return null
+    }
+
+    const { definition, phrasesExamples: [firstPhrase] } = wordInformation
+
+    return {
+      word,
+      front: firstPhrase,
+      back: definition
+    }
   }
 }
