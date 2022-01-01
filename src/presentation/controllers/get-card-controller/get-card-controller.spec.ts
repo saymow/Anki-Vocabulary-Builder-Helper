@@ -1,3 +1,5 @@
+import { CardModel } from '../../../domain/models/card';
+import { GetCard } from '../../../domain/usecases/get-card';
 import { MissingParamError } from '../../errors';
 import { badRequest, serverError } from '../../helpers/http/http-helper';
 import { HttpRequest } from '../../protocols/http';
@@ -20,16 +22,34 @@ const makeValidationStub = (): Validation => {
   return new ValidationStub();
 };
 
+const makeFakeCard = (): CardModel => ({
+  word: 'some_word',
+  front: 'front_text',
+  back: 'back_text',
+});
+
+const makeGetCardStub = (): GetCard => {
+  class GetCardStub implements GetCard {
+    async execute(word: string): Promise<CardModel> {
+      return makeFakeCard();
+    }
+  }
+
+  return new GetCardStub();
+};
+
 type SutTypes = {
   sut: GetCardController;
   validationStub: Validation;
+  getCardStub: GetCard;
 };
 
 const makeSut = (): SutTypes => {
   const validationStub = makeValidationStub();
-  const sut = new GetCardController(validationStub);
+  const getCardStub = makeGetCardStub();
+  const sut = new GetCardController(validationStub, getCardStub);
 
-  return { sut, validationStub };
+  return { sut, validationStub, getCardStub };
 };
 
 describe('GetCard controller', () => {
@@ -59,5 +79,13 @@ describe('GetCard controller', () => {
     const httpResponse = await sut.handle(makeFakeRequest());
 
     expect(httpResponse).toEqual(serverError(new Error()));
+  });
+
+  test('Should call GetCard with correct value', async () => {
+    const { sut, getCardStub } = makeSut();
+    const getCardSpy = jest.spyOn(getCardStub, 'execute');
+    await sut.handle(makeFakeRequest());
+
+    expect(getCardSpy).toHaveBeenCalledWith('any_word');
   });
 });
