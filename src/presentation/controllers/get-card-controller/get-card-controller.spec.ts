@@ -38,4 +38,16 @@ describe('GetCard controller', () => {
       word: 'any_word',
     });
   });
+
+  test('Should return 400 if validation returns an error', async () => {
+    const { sut, validationStub } = makeSut();
+    jest.spyOn(validationStub, 'validate').mockImplementation(() => new Error());
+
+    const httpResponse = await sut.handle({
+      queryParams: {},
+    });
+
+    expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse.body).toEqual(new Error());
+  });
 });
