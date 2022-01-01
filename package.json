@@ -4,7 +4,7 @@
   "description": "A flashcard-generator that creates a card by a given word",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf dist && tsc --project tsconfig-build.json",
     "prepare": "husky install",
     "lint": "eslint 'src/**'",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
