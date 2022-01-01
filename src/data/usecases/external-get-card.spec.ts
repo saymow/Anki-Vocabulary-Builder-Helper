@@ -46,4 +46,11 @@ describe('ExternalGetCard useCase', () => {
 
     expect(card).toBeNull()
   })
+
+  test('Should throw if GetWordInformationService throws', async () => {
+    const { sut, getWordInformationServiceStub } = makeSut()
+    jest.spyOn(getWordInformationServiceStub, 'getInformation').mockImplementationOnce(() => { throw new Error() })
+
+    await expect(sut.execute('any_word')).rejects.toThrow()
+  })
 })
