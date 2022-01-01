@@ -1,3 +1,4 @@
+import { badRequest } from '../../helpers/http/http-helper';
 import { MissingParamError } from '../../errors';
 import { Validation } from '../../protocols/validation';
 import { GetCardController } from './get-card-controller';
@@ -48,7 +49,6 @@ describe('GetCard controller', () => {
       queryParams: {},
     });
 
-    expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new MissingParamError('word'));
+    expect(httpResponse).toEqual(badRequest(new MissingParamError('word')));
   });
 });

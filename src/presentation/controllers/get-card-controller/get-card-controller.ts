@@ -1,3 +1,4 @@
+import { badRequest } from '../../helpers/http/http-helper';
 import { Controller } from '../../protocols/controller';
 import { HttpRequest, HttpResponse } from '../../protocols/http';
 import { Validation } from '../../protocols/validation';
@@ -9,10 +10,7 @@ export class GetCardController implements Controller {
     const error = this.validation.validate(httpRequest.queryParams);
 
     if (error) {
-      return {
-        statusCode: 400,
-        body: error,
-      };
+      return badRequest(error);
     }
 
     return {
