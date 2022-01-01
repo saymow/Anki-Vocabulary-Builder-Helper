@@ -1,16 +1,32 @@
 import { Validation } from '../../protocols/validation';
 import { GetCardController } from './get-card-controller';
 
+const makeValidationStub = (): Validation => {
+  class ValidationStub implements Validation {
+    validate(input: any): Error | null {
+      return null;
+    }
+  }
+
+  return new ValidationStub();
+};
+
+type SutTypes = {
+  sut: GetCardController;
+  validationStub: Validation;
+};
+
+const makeSut = (): SutTypes => {
+  const validationStub = makeValidationStub();
+  const sut = new GetCardController(validationStub);
+
+  return { sut, validationStub };
+};
+
 describe('GetCard controller', () => {
   test('Should call validation with correct value', async () => {
-    class ValidationStub implements Validation {
-      validate(input: any): Error | null {
-        return null;
-      }
-    }
-    const validationStub = new ValidationStub();
+    const { sut, validationStub } = makeSut();
     const validationSpy = jest.spyOn(validationStub, 'validate');
-    const sut = new GetCardController(validationStub);
 
     await sut.handle({
       queryParams: {
