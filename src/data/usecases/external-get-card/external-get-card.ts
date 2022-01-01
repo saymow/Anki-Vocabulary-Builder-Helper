@@ -1,6 +1,4 @@
-import { CardModel } from '@/domain/models/card'
-import { GetCard } from '@/domain/usecases/get-card'
-import { GetWordInformationService } from '@/data/protocols/external/get-word-information-service'
+import { CardModel, GetCard, GetWordInformationService } from './external-get-card-protocols'
 
 export class ExternalGetCard implements GetCard {
   constructor (

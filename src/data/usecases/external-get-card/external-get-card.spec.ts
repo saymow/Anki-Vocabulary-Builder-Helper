@@ -1,5 +1,4 @@
-import { GetWordInformationService, WordInformation } from '@/data/protocols/external/get-word-information-service'
-import { CardModel } from '@/domain/models/card'
+import { GetWordInformationService, WordInformation, CardModel } from './external-get-card-protocols'
 import { ExternalGetCard } from './external-get-card'
 
 const makeFakeWordInformation = (): WordInformation => ({
