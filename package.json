@@ -1,7 +1,7 @@
 {
-  "name": "kindle-to-anki-parser",
-  "version": "1.0.0",
-  "description": "",
+  "name": "flashcard-generator",
+  "version": "0.0.0",
+  "description": "A flashcard-generator that creates a card by a given word",
   "main": "index.js",
   "scripts": {
     "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules ./src/index.ts",
