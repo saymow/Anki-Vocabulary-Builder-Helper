@@ -1,3 +1,4 @@
+import 'module-alias/register'
 import app from '@/main/config/app'
 import { ENV } from './config/env'
 

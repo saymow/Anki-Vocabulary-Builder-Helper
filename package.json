@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf dist && tsc --project tsconfig-build.json",
+    "start": "node dist/main/server.js",
     "prepare": "husky install",
     "lint": "eslint src/**",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
@@ -29,7 +30,8 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "module-alias": "^2.2.2"
   },
   "_moduleAliases": {
     "@": "dist"
