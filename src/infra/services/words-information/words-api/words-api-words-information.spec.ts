@@ -335,5 +335,12 @@ describe('Words Information Words Api Service', () => {
 
       expect(wordInformation).toBeNull()
     })
+
+    test('Should throw on unexpected throws', async () => {
+      const sut = new WordsApiWordsInformation('any_key')
+      jest.spyOn(axios, 'get').mockImplementation(async () => { throw new Error() })
+
+      await expect(sut.getInformation('went')).rejects.toThrow()
+    })
   })
 })
