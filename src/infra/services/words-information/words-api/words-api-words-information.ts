@@ -17,24 +17,32 @@ export class WordsApiWordsInformation implements GetWordInformationService {
   ) { }
 
   async getInformation (word: string): Promise<WordInformation | null> {
-    const response: WordsApiResponse = await axios.get(`https://wordsapiv1.p.rapidapi.com/words/${word}`, {
-      headers: {
-        'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
-        'x-rapidapi-key': this.apiKey
+    try {
+      const response = await axios.get<WordsApiResponse>(`https://wordsapiv1.p.rapidapi.com/words/${word}`, {
+        headers: {
+          'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
+          'x-rapidapi-key': this.apiKey
+        }
+      })
+      const emptyWordInformation: WordInformation = {
+        usageExamples: [],
+        meanings: []
       }
-    })
-    const emptyWordInformation: WordInformation = {
-      usageExamples: [],
-      meanings: []
+
+      return (response.data.results ?? []).reduce<WordInformation>((wordInformation, result) => {
+        const { definition, partOfSpeech, synonyms = [], examples = [] } = result
+
+        wordInformation.usageExamples.push(...examples)
+        wordInformation.meanings.push({ definition, partOfSpeech, synonyms })
+
+        return wordInformation
+      }, emptyWordInformation)
+    } catch (error: any) {
+      if (error?.response && error?.response.status === 404) {
+        return null
+      }
+
+      throw error
     }
-
-    return (response.results ?? []).reduce<WordInformation>((wordInformation, result) => {
-      const { definition, partOfSpeech, synonyms = [], examples = [] } = result
-
-      wordInformation.usageExamples.push(...examples)
-      wordInformation.meanings.push({ definition, partOfSpeech, synonyms })
-
-      return wordInformation
-    }, emptyWordInformation)
   }
 }
