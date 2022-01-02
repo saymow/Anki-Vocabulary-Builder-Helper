@@ -218,7 +218,9 @@ const makeFakeApiResponse = (): any => ({
   frequency: 4.94
 })
 
-const makeFakeWordInformation = (): WordInformation => ({
+const makeFakeNoDefinitionsApiResponse = (): any => ({})
+
+const makeFakeFulfilledWordInformation = (): WordInformation => ({
   usageExamples: [
     'see table 1',
     'she sets a fine table',
@@ -286,9 +288,15 @@ const makeFakeWordInformation = (): WordInformation => ({
   ]
 })
 
+const makeFakeEmptyWordInformation = (): WordInformation => ({
+  meanings: [],
+  usageExamples: []
+})
+
 describe('Words Information Words Api Service', () => {
   describe('getInformation()', () => {
     jest.spyOn(axios, 'get').mockReturnValue(makeFakeApiResponse())
+
     test('Should make external request with correct values', async () => {
       const sut = new WordsApiWordsInformation('any_key')
 
@@ -305,11 +313,19 @@ describe('Words Information Words Api Service', () => {
       )
     })
 
-    test('Should return word WordInformation on success', async () => {
+    test('Should return fulfilled WordInformation on success', async () => {
       const sut = new WordsApiWordsInformation('any_key')
       const wordInformation = await sut.getInformation('table')
 
-      expect(wordInformation).toEqual(makeFakeWordInformation())
+      expect(wordInformation).toEqual(makeFakeFulfilledWordInformation())
+    })
+
+    test('Should return empty WordInformation on success but no definitions', async () => {
+      const sut = new WordsApiWordsInformation('any_key')
+      jest.spyOn(axios, 'get').mockReturnValueOnce(makeFakeNoDefinitionsApiResponse())
+      const wordInformation = await sut.getInformation('went')
+
+      expect(wordInformation).toEqual(makeFakeEmptyWordInformation())
     })
   })
 })
