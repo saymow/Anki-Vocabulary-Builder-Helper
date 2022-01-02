@@ -1,6 +1,6 @@
 
 import { WordInformation } from '@/data/protocols/external/get-word-information-service'
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { WordsApiWordsInformation } from './words-api-words-information'
 
 jest.mock('axios')
@@ -295,7 +295,7 @@ const makeFakeEmptyWordInformation = (): WordInformation => ({
 
 describe('Words Information Words Api Service', () => {
   describe('getInformation()', () => {
-    jest.spyOn(axios, 'get').mockReturnValue(makeFakeApiResponse())
+    jest.spyOn(axios, 'get').mockReturnValue(Promise.resolve({ data: makeFakeApiResponse() } as AxiosResponse))
 
     test('Should make external request with correct values', async () => {
       const sut = new WordsApiWordsInformation('any_key')
@@ -322,10 +322,18 @@ describe('Words Information Words Api Service', () => {
 
     test('Should return empty WordInformation on success but no definitions', async () => {
       const sut = new WordsApiWordsInformation('any_key')
-      jest.spyOn(axios, 'get').mockReturnValueOnce(makeFakeNoDefinitionsApiResponse())
+      jest.spyOn(axios, 'get').mockReturnValueOnce(Promise.resolve({ data: makeFakeNoDefinitionsApiResponse() } as AxiosResponse))
       const wordInformation = await sut.getInformation('went')
 
       expect(wordInformation).toEqual(makeFakeEmptyWordInformation())
+    })
+
+    test('Should return null if external api returns 404 (word not found)', async () => {
+      const sut = new WordsApiWordsInformation('any_key')
+      jest.spyOn(axios, 'get').mockImplementation(async () => { throw ({ response: { status: 404 } } as AxiosError) })
+      const wordInformation = await sut.getInformation('went')
+
+      expect(wordInformation).toBeNull()
     })
   })
 })
