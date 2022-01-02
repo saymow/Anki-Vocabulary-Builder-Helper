@@ -1,5 +1,5 @@
-import { GetWordInformationService, WordInformation, CardDataModel } from './external-get-card-protocols'
-import { ExternalGetCardData } from './external-get-card'
+import { GetWordInformationService, WordInformation, CardDataModel } from './external-get-card-data-protocols'
+import { ExternalGetCardData } from './external-get-card-data'
 
 const makeFakeWordInformation = (): WordInformation => ({
   usageExamples: ['first_example', 'second_example'],
@@ -17,7 +17,7 @@ const makeFakeWordInformation = (): WordInformation => ({
   ]
 })
 
-const makeFakeCard = (): CardDataModel => Object.assign({ word: 'any_word' }, makeFakeWordInformation())
+const makeFakeCardData = (): CardDataModel => Object.assign({ word: 'any_word' }, makeFakeWordInformation())
 
 const makeGetWordInformationServiceStub = (): GetWordInformationService => {
   class GetWordInformationServiceStub implements GetWordInformationService {
@@ -67,10 +67,10 @@ describe('ExternalGetCardData useCase', () => {
     await expect(sut.execute('any_word')).rejects.toThrow()
   })
 
-  test('Should return a card on success', async () => {
+  test('Should return a cardData on success', async () => {
     const { sut } = makeSut()
-    const card = await sut.execute('any_word')
+    const cardData = await sut.execute('any_word')
 
-    expect(card).toEqual(makeFakeCard())
+    expect(cardData).toEqual(makeFakeCardData())
   })
 })

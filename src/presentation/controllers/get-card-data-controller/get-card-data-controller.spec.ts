@@ -50,15 +50,15 @@ const makeGetCardDataStub = (): GetCardData => {
 type SutTypes = {
   sut: GetCardDataController
   validationStub: Validation
-  getCardStub: GetCardData
+  getCardDataStub: GetCardData
 }
 
 const makeSut = (): SutTypes => {
   const validationStub = makeValidationStub()
-  const getCardStub = makeGetCardDataStub()
-  const sut = new GetCardDataController(validationStub, getCardStub)
+  const getCardDataStub = makeGetCardDataStub()
+  const sut = new GetCardDataController(validationStub, getCardDataStub)
 
-  return { sut, validationStub, getCardStub }
+  return { sut, validationStub, getCardDataStub }
 }
 
 describe('GetCardDataController', () => {
@@ -90,32 +90,32 @@ describe('GetCardDataController', () => {
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 
-  test('Should call GetCard with correct value', async () => {
-    const { sut, getCardStub } = makeSut()
-    const getCardSpy = jest.spyOn(getCardStub, 'execute')
+  test('Should call GetCardData with correct value', async () => {
+    const { sut, getCardDataStub } = makeSut()
+    const getCardSpy = jest.spyOn(getCardDataStub, 'execute')
     await sut.handle(makeFakeRequest())
 
     expect(getCardSpy).toHaveBeenCalledWith('any_word')
   })
 
-  test('Should return 200 if GetCard returns a card', async () => {
+  test('Should return 200 if GetCard returns a cardData', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest())
 
     expect(httpResponse).toEqual(ok(makeFakeCardData()))
   })
 
-  test('Should return 404 if GetCard returns null', async () => {
-    const { sut, getCardStub } = makeSut()
-    jest.spyOn(getCardStub, 'execute').mockReturnValueOnce(Promise.resolve(null))
+  test('Should return 404 if GetCardData returns null', async () => {
+    const { sut, getCardDataStub } = makeSut()
+    jest.spyOn(getCardDataStub, 'execute').mockReturnValueOnce(Promise.resolve(null))
     const httpResponse = await sut.handle(makeFakeRequest())
 
     expect(httpResponse).toEqual(notFound())
   })
 
-  test('Should return 500 if GetCard throws', async () => {
-    const { sut, getCardStub } = makeSut()
-    jest.spyOn(getCardStub, 'execute').mockImplementation(() => { throw new Error() })
+  test('Should return 500 if GetCardData throws', async () => {
+    const { sut, getCardDataStub } = makeSut()
+    jest.spyOn(getCardDataStub, 'execute').mockImplementation(() => { throw new Error() })
     const httpResponse = await sut.handle(makeFakeRequest())
 
     expect(httpResponse).toEqual(serverError(new Error()))

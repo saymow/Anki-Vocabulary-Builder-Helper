@@ -1,4 +1,4 @@
-import { CardDataModel, GetCardData, GetWordInformationService } from './external-get-card-protocols'
+import { CardDataModel, GetCardData, GetWordInformationService } from './external-get-card-data-protocols'
 
 export class ExternalGetCardData implements GetCardData {
   constructor (

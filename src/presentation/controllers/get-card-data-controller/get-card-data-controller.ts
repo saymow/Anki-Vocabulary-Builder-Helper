@@ -5,7 +5,7 @@ import { HttpRequest, HttpResponse } from '@/presentation/protocols/http'
 import { Validation } from '@/presentation/protocols/validation'
 
 export class GetCardDataController implements Controller {
-  constructor (private readonly validation: Validation, private readonly getCard: GetCardData) { }
+  constructor (private readonly validation: Validation, private readonly getCardData: GetCardData) { }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
@@ -17,13 +17,13 @@ export class GetCardDataController implements Controller {
 
       const { word } = httpRequest.queryParams
 
-      const card = await this.getCard.execute(word)
+      const cardData = await this.getCardData.execute(word)
 
-      if (!card) {
+      if (!cardData) {
         return notFound()
       }
 
-      return ok(card)
+      return ok(cardData)
     } catch (error: any) {
       return serverError(error)
     }
