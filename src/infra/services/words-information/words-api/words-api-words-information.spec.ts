@@ -295,12 +295,14 @@ const makeFakeEmptyWordInformation = (): WordInformation => ({
   usageExamples: []
 })
 
+const makeSut = (): WordsApiWordsInformation => new WordsApiWordsInformation('any_key')
+
 describe('Words Information Words Api Service', () => {
   describe('getInformation()', () => {
     jest.spyOn(axios, 'get').mockReturnValue(Promise.resolve(makeFakeApiResponse()))
 
     test('Should make external request with correct values', async () => {
-      const sut = new WordsApiWordsInformation('any_key')
+      const sut = makeSut()
 
       await sut.getInformation('table')
 
@@ -316,14 +318,14 @@ describe('Words Information Words Api Service', () => {
     })
 
     test('Should return fulfilled WordInformation on success', async () => {
-      const sut = new WordsApiWordsInformation('any_key')
+      const sut = makeSut()
       const wordInformation = await sut.getInformation('table')
 
       expect(wordInformation).toEqual(makeFakeFulfilledWordInformation())
     })
 
     test('Should return empty WordInformation on success but no definitions', async () => {
-      const sut = new WordsApiWordsInformation('any_key')
+      const sut = makeSut()
       jest.spyOn(axios, 'get').mockReturnValueOnce(Promise.resolve(makeFakeNoDefinitionsApiResponse()))
       const wordInformation = await sut.getInformation('went')
 
@@ -331,7 +333,7 @@ describe('Words Information Words Api Service', () => {
     })
 
     test('Should return null if external api returns 404 (word not found)', async () => {
-      const sut = new WordsApiWordsInformation('any_key')
+      const sut = makeSut()
       jest.spyOn(axios, 'get').mockImplementation(async () => { throw ({ response: { status: 404 } } as AxiosError) })
       const wordInformation = await sut.getInformation('went')
 
@@ -339,7 +341,7 @@ describe('Words Information Words Api Service', () => {
     })
 
     test('Should throw on unexpected throws', async () => {
-      const sut = new WordsApiWordsInformation('any_key')
+      const sut = makeSut()
       jest.spyOn(axios, 'get').mockImplementation(async () => { throw new Error() })
 
       await expect(sut.getInformation('went')).rejects.toThrow()
