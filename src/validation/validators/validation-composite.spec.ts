@@ -29,4 +29,13 @@ describe('ValidationComposite', () => {
 
     expect(error).toEqual(new Error())
   })
+
+  test('Should return the first faced error', () => {
+    const { sut, validationsStubs } = makeSut()
+    jest.spyOn(validationsStubs[0], 'validate').mockReturnValueOnce(new Error('first error'))
+    jest.spyOn(validationsStubs[1], 'validate').mockReturnValueOnce(new Error('second error'))
+    const error = sut.validate({})
+
+    expect(error).toEqual(new Error('first error'))
+  })
 })
