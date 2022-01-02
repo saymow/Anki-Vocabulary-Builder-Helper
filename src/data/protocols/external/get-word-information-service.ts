@@ -1,6 +1,11 @@
+export type WordInformationMeanings = {
+  definition: string
+  partOfSpeech: string
+  synonyms: string[]
+}
 export interface WordInformation {
-  definitions: string[]
   usageExamples: string[]
+  meanings: WordInformationMeanings[]
 }
 
 export interface GetWordInformationService {

@@ -2,8 +2,19 @@ import { GetWordInformationService, WordInformation, CardDataModel } from './ext
 import { ExternalGetCardData } from './external-get-card'
 
 const makeFakeWordInformation = (): WordInformation => ({
-  definitions: ['first_definition', 'second_definition'],
-  usageExamples: ['first_example', 'second_example']
+  usageExamples: ['first_example', 'second_example'],
+  meanings: [
+    {
+      definition: 'any_definition',
+      partOfSpeech: 'verb',
+      synonyms: ['synonym 1', 'synonym 2']
+    },
+    {
+      definition: 'any_definition 2',
+      partOfSpeech: 'noun',
+      synonyms: ['synonym 1', 'synonym 2']
+    }
+  ]
 })
 
 const makeFakeCard = (): CardDataModel => Object.assign({ word: 'any_word' }, makeFakeWordInformation())

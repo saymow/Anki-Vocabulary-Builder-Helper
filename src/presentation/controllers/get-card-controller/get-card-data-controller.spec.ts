@@ -25,7 +25,18 @@ const makeValidationStub = (): Validation => {
 const makeFakeCardData = (): CardDataModel => ({
   word: 'some_word',
   usageExamples: ['any_usage_example'],
-  definitions: ['any_definition']
+  meanings: [
+    {
+      definition: 'any_definition',
+      partOfSpeech: 'verb',
+      synonyms: ['synonym 1', 'synonym 2']
+    },
+    {
+      definition: 'any_definition 2',
+      partOfSpeech: 'noun',
+      synonyms: ['synonym 1', 'synonym 2']
+    }
+  ]
 })
 
 const makeGetCardDataStub = (): GetCardData => {
