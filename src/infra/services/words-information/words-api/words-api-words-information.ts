@@ -38,7 +38,7 @@ export class WordsApiWordsInformation implements GetWordInformationService {
         return wordInformation
       }, emptyWordInformation)
     } catch (error: any) {
-      if (error?.response && error?.response.status === 404) {
+      if (error.response?.status === 404) {
         return null
       }
 

@@ -334,7 +334,7 @@ describe('Words Information Words Api Service', () => {
 
     test('Should return null if external api returns 404 (word not found)', async () => {
       const sut = makeSut()
-      jest.spyOn(axios, 'get').mockImplementation(async () => { throw ({ response: { status: 404 } } as AxiosError) })
+      jest.spyOn(axios, 'get').mockRejectedValueOnce({ response: { status: 404 } } as AxiosError)
       const wordInformation = await sut.getInformation('went')
 
       expect(wordInformation).toBeNull()
@@ -342,7 +342,7 @@ describe('Words Information Words Api Service', () => {
 
     test('Should throw on unexpected throws', async () => {
       const sut = makeSut()
-      jest.spyOn(axios, 'get').mockImplementation(async () => { throw new Error() })
+      jest.spyOn(axios, 'get').mockRejectedValueOnce(new Error())
 
       await expect(sut.getInformation('went')).rejects.toThrow()
     })

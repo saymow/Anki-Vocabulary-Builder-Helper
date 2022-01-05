@@ -9,8 +9,10 @@
     "prepare": "husky install",
     "lint": "eslint src/**",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --passWithNoTests --runInBand",
     "test:staged": "npm run test -- --findRelatedTests",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "test:ci": "npm run test -- --coverage"
   },
   "keywords": [],
   "author": "Gustavo Alves",
