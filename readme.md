@@ -20,3 +20,13 @@
 <h2 align="center">Dependencies Diagram<h2>
 
 ![Structure Diagram](diagram.drawio.svg)
+
+<br>
+
+## Usecases
+
+<ul>
+  <li>
+    <a href="requirements/get-card-data.md">Get card data</a>
+  </li>
+<ul>
