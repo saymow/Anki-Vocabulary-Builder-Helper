@@ -1,8 +1,8 @@
 {
   "name": "flashcard-generator",
-  "version": "0.0.0",
-  "description": "A flashcard-generator that creates a card by a given word",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "A flashcard-generator that helps you generate a flashcard",
+  "main": "/src/main/server.ts",
   "scripts": {
     "build": "rm -rf dist && tsc --project tsconfig-build.json",
     "start": "env-cmd node dist/main/server.js",
