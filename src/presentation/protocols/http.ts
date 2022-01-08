@@ -1,5 +1,5 @@
 export type HttpRequest = {
-  queryParams: Record<string, string>
+  queryParams: Record<string, any>
   body?: any
 }
 
