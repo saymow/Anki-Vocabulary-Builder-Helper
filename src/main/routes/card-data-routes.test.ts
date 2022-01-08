@@ -1,5 +1,5 @@
 import app from '@/main/config/app'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import supertest from 'supertest'
 
 jest.mock('axios')
@@ -226,6 +226,13 @@ describe('Card Data Routes', () => {
       const word = 'machine'
 
       await supertest(app).get(`/api/card-data?word=${word}`).expect(200)
+    })
+
+    test('Should return 404 on word not found', async () => {
+      jest.spyOn(axios, 'get').mockRejectedValueOnce({ response: { status: 404 } } as AxiosError)
+      const word = 'some-inexistent-word'
+
+      await supertest(app).get(`/api/card-data?word=${word}`).expect(404)
     })
   })
 })
