@@ -1,5 +1,5 @@
 import { GetCardDataController } from './get-card-data-controller'
-import { MissingParamError } from '@/presentation/errors'
+import { InvalidParamError, MissingParamError } from '@/presentation/errors'
 import { badRequest, notFound, ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { HttpRequest } from '@/presentation/protocols/http'
 import { Validation } from '@/presentation/protocols/validation'
@@ -110,7 +110,7 @@ describe('GetCardDataController', () => {
     jest.spyOn(getCardDataStub, 'execute').mockReturnValueOnce(Promise.resolve(null))
     const httpResponse = await sut.handle(makeFakeRequest())
 
-    expect(httpResponse).toEqual(notFound())
+    expect(httpResponse).toEqual(notFound(new InvalidParamError('any_word')))
   })
 
   test('Should return 500 if GetCardData throws', async () => {

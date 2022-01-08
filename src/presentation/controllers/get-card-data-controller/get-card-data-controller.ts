@@ -1,4 +1,5 @@
 import { GetCardData } from '@/domain/usecases/get-card-data'
+import { InvalidParamError } from '@/presentation/errors'
 import { badRequest, notFound, ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { Controller } from '@/presentation/protocols/controller'
 import { HttpRequest, HttpResponse } from '@/presentation/protocols/http'
@@ -20,7 +21,7 @@ export class GetCardDataController implements Controller {
       const cardData = await this.getCardData.execute(word)
 
       if (!cardData) {
-        return notFound()
+        return notFound(new InvalidParamError(word))
       }
 
       return ok(cardData)
