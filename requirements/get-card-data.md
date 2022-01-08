@@ -9,5 +9,4 @@
 > ## Exceptions
 > - ✅ Returns **400** error if word isn't provided
 > - ✅ Returns **404** error if cant create card
-> - ✅ Returns **404** error if api does no exists
 > - ✅ Returns **500** error if some unexpected error happen
