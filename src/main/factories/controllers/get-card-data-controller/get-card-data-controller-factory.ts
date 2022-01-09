@@ -2,7 +2,8 @@ import { GetCardDataController } from '@/presentation/controllers/get-card-data-
 import { Controller } from '@/presentation/protocols/controller'
 import { makeExternalGetCardData } from '@/main/factories/usecases/external-get-card-data/external-get-card-data-factory'
 import { makeGetCardDataValidation } from './get-card-data-validation-factory'
+import { makeLogControllerDecorator } from '../../decorators/log-controller-decorator-factory'
 
 export const makeGetCardDataController = (): Controller => {
-  return new GetCardDataController(makeGetCardDataValidation(), makeExternalGetCardData())
+  return makeLogControllerDecorator(new GetCardDataController(makeGetCardDataValidation(), makeExternalGetCardData()))
 }
