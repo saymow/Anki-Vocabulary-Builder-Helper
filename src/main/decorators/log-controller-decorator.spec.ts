@@ -6,7 +6,7 @@ import { LogControllerDecorator } from './log-controller-decorator'
 const mockController = (): Controller => {
   class GenericController implements Controller {
     async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-      return ok({ success: true })
+      return mockHttpResponse()
     }
   }
 
@@ -17,6 +17,8 @@ const mockHttpRequest = (): HttpRequest => ({
   queryParams: {},
   body: { test: true }
 })
+
+const mockHttpResponse = (): HttpResponse => ok({ success: true })
 
 type SutTypes = {
   sut: LogControllerDecorator
@@ -39,5 +41,13 @@ describe('LogControllerDecorator', () => {
     await sut.handle(httpRequest)
 
     expect(controllerHandleSpy).toHaveBeenCalledWith(httpRequest)
+  })
+
+  test('Should return controller return value', async () => {
+    const { sut } = makeSut()
+    const httpRequest = mockHttpRequest()
+    const httpResponse = await sut.handle(httpRequest)
+
+    expect(httpResponse).toEqual(mockHttpResponse())
   })
 })
