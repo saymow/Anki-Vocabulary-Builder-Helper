@@ -1,13 +1,13 @@
 <div align="right">
-  <img src="https://img.shields.io/github/repo-size/saymow/flashcard-generator"/>
-  <img src="https://img.shields.io/github/languages/code-size/saymow/flashcard-generator"/>
-  <img src="https://snyk.io/test/github/saymow/flashcard-generator/badge.svg"/>
-  <img src="https://img.shields.io/github/release-date-pre/saymow/flashcard-generator"/>
-  <a href='https://coveralls.io/github/saymow/flashcard-generator?branch=master'>
-    <img src='https://coveralls.io/repos/github/saymow/flashcard-generator/badge.svg?branch=master' alt='Coverage Status' />
+  <img src="https://img.shields.io/github/repo-size/saymow/clean-flashcard-generator-api"/>
+  <img src="https://img.shields.io/github/languages/code-size/saymow/clean-flashcard-generator-api"/>
+  <img src="https://snyk.io/test/github/saymow/clean-flashcard-generator-api/badge.svg"/>
+  <img src="https://img.shields.io/github/release-date-pre/saymow/clean-flashcard-generator-api"/>
+  <a href='https://coveralls.io/github/saymow/clean-flashcard-generator-api?branch=master'>
+    <img src='https://coveralls.io/repos/github/saymow/clean-flashcard-generator-api/badge.svg?branch=master' alt='Coverage Status' />
   </a>
-  <a href="https://app.travis-ci.com/saymow/flashcard-generator">
-    <img src="https://app.travis-ci.com/saymow/flashcard-generator.svg?branch=master"/>
+  <a href="https://app.travis-ci.com/saymow/clean-flashcard-generator-api">
+    <img src="https://app.travis-ci.com/saymow/clean-flashcard-generator-api.svg?branch=master"/>
   </a>
 </div>
 
