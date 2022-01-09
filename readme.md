@@ -19,7 +19,9 @@
 
 <h2 align="center">Dependencies Diagram<h2>
 
-![Structure Diagram](diagram.drawio.svg)
+<div align="center">
+  <img src="diagram.drawio.svg" align="center"></img>
+</div>
 
 <br>
 
