@@ -1,10 +1,7 @@
-import { GetCardDataController } from './get-card-data-controller'
 import { InvalidParamError, MissingParamError } from '@/presentation/errors'
 import { badRequest, notFound, ok, serverError } from '@/presentation/helpers/http/http-helper'
-import { HttpRequest } from '@/presentation/protocols/http'
-import { Validation } from '@/presentation/protocols/validation'
-import { CardDataModel } from '@/domain/models/card-data'
-import { GetCardData } from '@/domain/usecases/get-card-data'
+import { GetCardDataController } from './get-card-data-controller'
+import { CardDataModel, GetCardData, HttpRequest, Validation } from './get-card-data-controller-protocols'
 
 const makeFakeRequest = (): HttpRequest => ({
   queryParams: {
@@ -14,7 +11,7 @@ const makeFakeRequest = (): HttpRequest => ({
 
 const makeValidationStub = (): Validation => {
   class ValidationStub implements Validation {
-    validate (input: any): Error | void {}
+    validate (input: any): Error | void { }
   }
 
   return new ValidationStub()

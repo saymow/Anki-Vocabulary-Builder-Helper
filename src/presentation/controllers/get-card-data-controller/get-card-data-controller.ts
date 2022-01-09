@@ -1,9 +1,6 @@
-import { GetCardData } from '@/domain/usecases/get-card-data'
 import { InvalidParamError } from '@/presentation/errors'
 import { badRequest, notFound, ok, serverError } from '@/presentation/helpers/http/http-helper'
-import { Controller } from '@/presentation/protocols/controller'
-import { HttpRequest, HttpResponse } from '@/presentation/protocols/http'
-import { Validation } from '@/presentation/protocols/validation'
+import { GetCardData, Controller, HttpRequest, HttpResponse, Validation } from './get-card-data-controller-protocols'
 
 export class GetCardDataController implements Controller {
   constructor (private readonly validation: Validation, private readonly getCardData: GetCardData) { }
